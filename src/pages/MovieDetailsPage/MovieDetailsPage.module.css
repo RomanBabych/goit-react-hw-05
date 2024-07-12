@@ -1,0 +1,49 @@
+.contentWrapper {
+  display: flex;
+  gap: 30px;
+  padding: 15px;
+}
+
+.backBtn {
+  margin: 6px 0 0 15px;
+  display: flex;
+  gap: 5px;
+  align-items: center;
+}
+
+.backLink {
+  text-decoration: none;
+  color: inherit;
+}
+
+.imageWrapper {
+  width: 200px;
+  height: 350px;
+  flex-shrink: 0;
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.optionsWrapper {
+  margin: 0;
+  padding: 5px 15px;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+}
+
+.optionsText {
+  margin: 0;
+}
+
+.optionsList {
+  margin: 0;
+  padding-left: 25px;
+}
+
+.optionsLink:hover {
+  color: orangered;
+}
