@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { fetchMoviesByQuery } from "../../tmdb-api";
 import MovieList from "../../components/MovieList/MovieList";
 import css from "./MoviesPage.module.css";
@@ -6,10 +7,19 @@ import css from "./MoviesPage.module.css";
 export default function MoviesPage() {
   const [query, setQuery] = useState("");
   const [movies, setMovies] = useState([]);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  useEffect(() => {
+    const query = searchParams.get("query");
+    if (query) {
+      fetchMoviesByQuery(query).then((data) => setMovies(data.results));
+      setQuery(query);
+    }
+  }, [searchParams]);
 
   const handleSearch = (e) => {
     e.preventDefault();
-    fetchMoviesByQuery(query).then((data) => setMovies(data.results));
+    setSearchParams({ query });
   };
 
   return (

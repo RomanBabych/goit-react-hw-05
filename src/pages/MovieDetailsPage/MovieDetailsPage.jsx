@@ -1,4 +1,4 @@
-import { useEffect, useState, lazy, Suspense } from "react";
+import { useEffect, useState, lazy, Suspense, useRef } from "react";
 import { useParams, Link, Routes, Route, useLocation } from "react-router-dom";
 import { fetchMovieDetails } from "../../tmdb-api";
 import { FaArrowLeft } from "react-icons/fa";
@@ -13,6 +13,7 @@ export default function MovieDetailsPage() {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
   const location = useLocation();
+  const prevLocation = useRef(location.state?.from || "/movies");
 
   useEffect(() => {
     fetchMovieDetails(movieId).then((data) => setMovie(data));
@@ -26,7 +27,7 @@ export default function MovieDetailsPage() {
     <div className={css.container}>
       <button className={css.backBtn}>
         <FaArrowLeft size={10} />
-        <Link className={css.backLink} to={location.state?.from ?? "/movies"}>
+        <Link className={css.backLink} to={prevLocation.current}>
           Go back
         </Link>
       </button>
@@ -43,7 +44,7 @@ export default function MovieDetailsPage() {
             {movie.title} ({movie.release_date.slice(0, 4)})
           </h1>
           <p>User Score: {votePercent}%</p>
-          <h2>Oveview</h2>
+          <h2>Overview</h2>
           <p>{movie.overview}</p>
           <h2>Genres</h2>
           <p>{movie.genres.map((genre) => genre.name).join(" ")}</p>
